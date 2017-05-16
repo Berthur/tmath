@@ -21,6 +21,14 @@ function assertEquals(obj1, obj2) {
     assert(res, `assertEquals(): "${obj1.toString} does not equal ${obj2.toString}."`);
 }
 
+function assertDoesNotEqual(obj1, obj2) {
+    var res;
+    if (typeof obj1.equals === 'function')
+        res = !obj1.equals(obj2);
+    else res = obj1 !== obj2;
+    assert(res, `assertEquals(): "${obj1.toString} equals ${obj2.toString}, even though it shouldn't."`);
+}
+
 
 function testVec2() {
     errors = tests = 0;
@@ -60,7 +68,7 @@ function testVec2() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec2(1, -8)                     );
     assertEquals(   t6.neg,                     new Vec2(-3.173, 0.6632)            );
-    console.log("   Testing negation:");
+    console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
     assertEquals(   t8.isZero,                  false                               );
@@ -117,8 +125,6 @@ function testVec2() {
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
     }
 
-    //assertEquals(     );
-
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");
     } else {
@@ -165,7 +171,7 @@ function testVec3() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec3(1, -8, -2)                 );
     assertEquals(   t6.neg,                     new Vec3(-3.173, 0.6632, -1.11537)  );
-    console.log("   Testing negation:");
+    console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
     assertEquals(   t8.isZero,                  false                               );
@@ -222,8 +228,6 @@ function testVec3() {
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
     }
 
-    //assertEquals(     );
-
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");
     } else {
@@ -270,7 +274,7 @@ function testVec4() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec4(1, -8, -2, 3)              );
     assertEquals(   t6.neg,                     new Vec4(-3.173, 0.6632, -1.11537, -0.00145));
-    console.log("   Testing negation:");
+    console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
     assertEquals(   t8.isZero,                  false                               );
@@ -326,7 +330,100 @@ function testVec4() {
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
     }
 
-    //assertEquals(     );
+    if (errors === 0) {
+        console.log(" >>> ALL " + tests + " TESTS PASSED.");
+    } else {
+        console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
+    }
+    errors = tests = 0;
+}
+
+function testMat2() {
+    errors = tests = 0;
+    console.log("___ Testing Mat2: ___");
+
+    let t1 = new Vec2(0, 0);
+    let t2 = new Vec2(3, 7);
+    let t3 = new Vec2(-1, 8);
+    let t4 = new Vec2(-4, 0);
+    let t5 = new Vec2(34645747, -2343434);
+    let t6 = new Vec2(3.173, -0.6632);
+    let t7 = new Vec2(-3, 0);
+    let t8 = new Vec2(0, 13);
+
+    let m1 = new Mat2();
+    let m2 = new Mat2(t1, t1);
+    let m3 = new Mat2(t2, t3);
+    let m4 = new Mat2(t7, t8);
+    let m5 = new Mat2(t5, t6);
+
+    console.log("   Testing type:");
+    assertEquals(   m2.type,                    "Mat2"                                                          );
+    assertEquals(   m5.type,                    "Mat2"                                                          );
+    console.log("   Testing toString:");
+    assertEquals(   m2.toString,                "(0\t\t0)\n(0\t\t0)"                                            );
+    assertEquals(   m3.toString,                `(${ t2.x }\t\t${ t3.x })\n(${ t2.y }\t\t${ t3.y })`            );
+    console.log("   Testing component getters:");
+    assertEquals(   m2.col0,                    t1                                                              );
+    assertEquals(   m3.col1,                    t3                                                              );
+    console.log("   Testing equality:");
+    assertEquals(   m5,                         m5                                                              );
+    assertEquals(   m1,                         new Mat2()                                                      );
+    console.log("   Testing negation:");
+    assertEquals(   m2.neg,                     m2                                                              );
+    assertEquals(   m5.neg,                     new Mat2(t5.neg, t6.neg)                                        );
+    assertEquals(   m4.neg,                     new Mat2(new Vec2(3,0), new Vec2(0,-13))                        );
+    console.log("   Testing isIdentity:");
+    assertEquals(   m1.isIdentity,              true                                                            );
+    assertEquals(   m2.isIdentity,              false                                                           );
+    assertEquals(   m5.isIdentity,              false                                                           );
+    console.log("   Testing transposed:");
+    assertEquals(   m1.transposed,              m1                                                              );
+    assertEquals(   m2.transposed,              m2                                                              );
+    assertEquals(   m5.transposed,              new Mat2(new Vec2(t5.x, t6.x), new Vec2(t5.y, t6.y))            );
+    console.log("   Testing determinant:");
+    assertEquals(   m1.determinant,             1                                                               );
+    assertEquals(   m2.determinant,             0                                                               );
+    assertEquals(   m3.determinant,             3*8 - (-1)*7                                                    );
+    console.log("   Testing inverted:");
+    assertEquals(   m1.inverted,                m1.neg                                                          );  // TODO!
+    assertEquals(   m2.inverted,                m1.neg                                                          );  // TODO!
+    assertEquals(   m3.inverted,                m1.neg                                                          );  // TODO!
+    console.log("   Testing addition:");
+    assertEquals(   m1.add(m1),                 new Mat2(new Vec2(2,0), new Vec2(0,2))                          );
+    assertEquals(   m2.add(m5),                 m5                                                              );
+    assertEquals(   m3.add(m4),                 new Mat2(t2.add(t7), t8.add(t3))                                );
+    assertEquals(   m4.add(m5),                 m5.add(m4)                                                      );
+    console.log("   Testing subtraction:");
+    assertEquals(   m1.sub(m1),                 m2                                                              );
+    assertEquals(   m5.sub(m5),                 m2                                                              );
+    assertEquals(   m3.sub(m4),                 new Mat2(t2.sub(t7), t3.sub(t8))                                );
+    assertEquals(   m4.sub(m5),                 m4.add(m5.neg)                                                  );
+    console.log("   Testing scalar multiplication:");
+    assertEquals(   m5.mul(0),                  m2                                                              );
+    assertEquals(   m1.mul(-3),                 new Mat2(new Vec2(-3,0), new Vec2(0,-3))                        );
+    assertEquals(   m2.mul(-1235.6790),         m2                                                              );
+    assertEquals(   m3.mul(4),                  new Mat2(m3.col0.mul(4), m3.col1.mul(4))                        );
+    console.log("   Testing scalar division:");
+    assertEquals(   m5.div(-3.3),               new Mat2(m5.col0.div(-3.3), m5.col1.div(-3.3))                  );
+    assertEquals(   m1.div(4),                  new Mat2(new Vec2(1/4,0), new Vec2(0,1/4))                      );
+    assertEquals(   m2.div(-1235.6790),         m2                                                              );
+    assertEquals(   m3.div(4),                  new Mat2(m3.col0.div(4), m3.col1.div(4))                        );
+    {
+        let threw = false;
+        let res;
+        try {
+            res = m5.div(0);
+        } catch(err) {
+            threw = true;
+        }
+        assert(threw, `div did not throw an error on ${m2.toString} / 0. Result: ${res}.`);
+    }
+    console.log("   Testing matrix multiplication:");
+    assertEquals(   m1.mul(m5),                 m5                                                              );
+    assertEquals(   m5.mul(m1),                 m5                                                              );
+    assertEquals(   m3.mul(m4),                 new Mat2(new Vec2(-9,-21), new Vec2(-13,104))                   );
+    assertEquals(   m4.mul(m3),                 new Mat2(new Vec2(-9,91), new Vec2(3,104))                      );
 
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");

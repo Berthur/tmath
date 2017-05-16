@@ -226,6 +226,7 @@ class Mat2 {
     get type() { return this._type; }
     get col0() { return this._col0; }
     get col1() { return this._col1; }
+   	get neg() { return new this.constructor(this.col0.neg, this.col1.neg); }
     get isIdentity() {
     	return 	this._col0.x === 1 && this._col0.y === 0 &&
     			this._col1.x === 0 && this._col1.y === 1;
@@ -235,6 +236,11 @@ class Mat2 {
     get inverted() { return new this.constructor(); }		 // TODO!
     get determinant() { return this._col0.x * this._col1.y - this._col0.y * this._col1.x; }
 
+    equals(other) {
+        if (typeof(other) === 'object' && other.type === this._type) {
+            return this.col0.equals(other.col0) && this.col1.equals(other.col1);
+        } else throw errors.invalidArgument;
+    }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.add(other.col0), this._col1.add(other.col1));
