@@ -134,6 +134,12 @@ class Vec3 {
             return this._x * other.x + this._y * other.y + this._z * other.z;
         }
     }
+    cross(other) {
+    	let x = this._y * other.z - this._z * other.y;
+    	let y = this._z * other.x - this._x * other.z;
+    	let z = this._x * other.y - this._y * other.x;
+    	return new Vec3(x, y, z);
+    }
 
 };
 

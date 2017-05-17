@@ -213,6 +213,12 @@ function testVec3() {
     assertEquals(   t3.dot(t1),                 0                                   );
     assertEquals(   t2.dot(t3),                 57                                  );
     assertEquals(   t8.dot(t7),                 0                                   );
+    console.log("   Testing cross product:");
+    assertEquals(   t3.cross(t1),              	t1                     				);
+    assertEquals(   t5.cross(t5),              	t1                     				);
+    assertEquals(   t2.cross(t3),           	new Vec3(-2,-8,31)                  );
+    assertEquals(   t4.cross(t7),              	new Vec3(0,9,0)	                    );
+    assertEquals(	t5.cross(t6),				t6.cross(t5).neg 					);
     console.log("   Testing pointwise multiplication:");
     assertEquals(   t5.mul(t1),                 new Vec3(0, 0, 0)                   );
     assertEquals(   t3.mul(t4),                 new Vec3(4, 0, -6)                  );
