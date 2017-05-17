@@ -376,6 +376,8 @@ function testMat2() {
     console.log("   Testing component getters:");
     assertEquals(   m2.col0,                    t1                                                              );
     assertEquals(   m3.col1,                    t3                                                              );
+    assertEquals(   m2.row0,                    t1                                                              );
+    assertEquals(   m3.row1,                   	new Vec2(t2.y, t3.y)	                                        );
     console.log("   Testing equality:");
     assertEquals(   m5,                         m5                                                              );
     assertEquals(   m1,                         new Mat2()                                                      );
@@ -478,6 +480,8 @@ function testMat3() {
     assertEquals(   m3.col1,                    t3                                                              );
     assertEquals(	m5.col2,					t5																);
     assertEquals(	m4.col2,					new Vec3(3,3,-1)												);
+    assertEquals(	m4.row2,					new Vec3(0,-9,-1)												);
+    assertEquals(	m5.row2,					new Vec3(t5.z, t6.z, t5.z)										);
     console.log("   Testing equality:");
     assertEquals(   m5,                         m5                                                              );
     assertEquals(   m1,                         new Mat3()                                                      );
@@ -580,6 +584,8 @@ function testMat4() {
     assertEquals(   m3.col1,                    t3                                                              );
     assertEquals(	m5.col3,					t6																);
     assertEquals(	m4.col3,					new Vec4(1,-1,6,2)												);
+    assertEquals(	m4.row3,					new Vec4(3,4,8,2)												);
+    assertEquals(	m5.row3,					new Vec4(t5.w, t6.w, t5.w, t6.w)								);
     console.log("   Testing equality:");
     assertEquals(   m5,                         m5                                                              );
     assertEquals(   m1,                         new Mat4()                                                      );

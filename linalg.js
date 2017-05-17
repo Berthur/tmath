@@ -239,6 +239,8 @@ class Mat2 {
     get type() { return this._type; }
     get col0() { return this._col0; }
     get col1() { return this._col1; }
+    get row0() { return new Vec2(this._col0.x, this._col1.x); }
+    get row1() { return new Vec2(this._col0.y, this._col1.y); }
    	get neg() { return new this.constructor(this.col0.neg, this.col1.neg); }
     get isIdentity() {
     	return 	this._col0.x === 1 && this._col0.y === 0 &&
@@ -323,6 +325,9 @@ class Mat3 {
     get col0() { return this._col0; }
     get col1() { return this._col1; }
     get col2() { return this._col2; }
+    get row0() { return new Vec3(this._col0.x, this._col1.x, this._col2.x); }
+    get row1() { return new Vec3(this._col0.y, this._col1.y, this._col2.y); }
+    get row2() { return new Vec3(this._col0.z, this._col1.z, this._col2.z); }
    	get neg() { return new this.constructor(this.col0.neg, this.col1.neg, this._col2.neg); }
     get isIdentity() {
     	return 	this._col0.x === 1 && this._col0.y === 0 && this._col0.z === 0 &&
@@ -420,6 +425,10 @@ class Mat4 {
     get col1() { return this._col1; }
     get col2() { return this._col2; }
     get col3() { return this._col3; }
+    get row0() { return new Vec4(this._col0.x, this._col1.x, this._col2.x, this._col3.x); }
+    get row1() { return new Vec4(this._col0.y, this._col1.y, this._col2.y, this._col3.y); }
+    get row2() { return new Vec4(this._col0.z, this._col1.z, this._col2.z, this._col3.z); }
+    get row3() { return new Vec4(this._col0.w, this._col1.w, this._col2.w, this._col3.w); }
    	get neg() { return new this.constructor(this.col0.neg, this.col1.neg, this._col2.neg, this._col3.neg); }
     get isIdentity() {
     	return 	this._col0.x === 1 && this._col0.y === 0 && this._col0.z === 0 && this._col0.w === 0 &&
