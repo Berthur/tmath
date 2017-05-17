@@ -21,6 +21,10 @@ function assertEquals(obj1, obj2) {
     assert(res, `assertEquals(): "${obj1.toString} does not equal ${obj2.toString}."`);
 }
 
+function assertAlmostEquals(cand, ref, threshold) {
+	Math.abs(ref - cand) <= threshold;
+}
+
 function assertDoesNotEqual(obj1, obj2) {
     var res;
     if (typeof obj1.equals === 'function')
@@ -540,43 +544,44 @@ function testMat3() {
     errors = tests = 0;
 }
 
-function testMat3() {
+function testMat4() {
     errors = tests = 0;
-    console.log("___ Testing Mat3: ___");
+    console.log("___ Testing Mat4: ___");
 
-    let t1 = new Vec3(0, 0, 0);
-    let t2 = new Vec3(3, 7, 2);
-    let t3 = new Vec3(-1, 8, 3);
-    let t4 = new Vec3(-4, 0, 0);
-    let t5 = new Vec3(34645747, -2343434, 1290312);
-    let t6 = new Vec3(3.173, -0.6632, 0.43337);
-    let t7 = new Vec3(-3, 1, 0);
-    let t8 = new Vec3(0, 0, 7);
+    let t1 = new Vec4(0, 0, 0, 0);
+    let t2 = new Vec4(3, 7, 2, 4);
+    let t3 = new Vec4(-1, 8, 3, -2);
+    let t4 = new Vec4(-4, 0, 0, 0);
+    let t5 = new Vec4(34645747, -2343434, 1290312, -883622);
+    let t6 = new Vec4(3.173, -0.6632, 0.43337, -2.36377);
+    let t7 = new Vec4(-3, 1, 5, 0);
+    let t8 = new Vec4(0, 0, 0, -3);
 
-    let m1 = new Mat3();
-    let m2 = new Mat3(t1, t1, t1);
-    let m3 = new Mat3(t2, t3, t7);
-    let m4 = new Mat3(-3,0,0, 13,3,-9, 3,3,-1);
-    let m5 = new Mat3(t5, t6, t5);
+    let m1 = new Mat4();
+    let m2 = new Mat4(t1, t1, t1, t1);
+    let m3 = new Mat4(t2, t3, t7, t2);
+    let m4 = new Mat4(-3,0,0,3, 13,3,-9,4, 3,3,-1,8, 1,-1,6,2);
+    let m5 = new Mat4(t5, t6, t5, t6);
 
     console.log("   Testing type:");
-    assertEquals(   m2.type,                    "Mat3"                                                          );
-    assertEquals(   m5.type,                    "Mat3"                                                          );
+    assertEquals(   m2.type,                    "Mat4"                                                          );
+    assertEquals(   m5.type,                    "Mat4"                                                          );
     console.log("   Testing toString:");
-    assertEquals(   m2.toString,                "(0\t\t0\t\t0)\n(0\t\t0\t\t0)\n(0\t\t0\t\t0)"                   );
-    assertEquals(   m3.toString,                `(${ t2.x }\t\t${ t3.x }\t\t${ t7.x })\n(${ t2.y }\t\t${ t3.y }\t\t${ t7.y })\n(${ t2.z }\t\t${ t3.z }\t\t${ t7.z })`);
+    assertEquals(   m2.toString,                "(0\t\t0\t\t0\t\t0)\n(0\t\t0\t\t0\t\t0)\n(0\t\t0\t\t0\t\t0)\n(0\t\t0\t\t0\t\t0)");
+    assertEquals(   m3.toString,                `(${ t2.x }\t\t${ t3.x }\t\t${ t7.x }\t\t${ t2.x })\n(${ t2.y }\t\t${ t3.y }\t\t${ t7.y }\t\t${ t2.y })\n(${ t2.z }\t\t${ t3.z }\t\t${ t7.z }\t\t${ t2.z })\n(${ t2.w }\t\t${ t3.w }\t\t${ t7.w }\t\t${ t2.w })`);
     console.log("   Testing component getters:");
     assertEquals(   m2.col0,                    t1                                                              );
     assertEquals(   m3.col1,                    t3                                                              );
-    assertEquals(	m5.col2,					t5																);
-    assertEquals(	m4.col2,					new Vec3(3,3,-1)												);
+    assertEquals(	m5.col3,					t6																);
+    assertEquals(	m4.col3,					new Vec4(1,-1,6,2)												);
     console.log("   Testing equality:");
     assertEquals(   m5,                         m5                                                              );
-    assertEquals(   m1,                         new Mat3()                                                      );
+    assertEquals(   m1,                         new Mat4()                                                      );
+    assertDoesNotEqual( m2,						m3																);
     console.log("   Testing negation:");
     assertEquals(   m2.neg,                     m2                                                              );
-    assertEquals(   m5.neg,                     new Mat3(t5.neg, t6.neg, t5.neg)                                );
-    assertEquals(   m4.neg,                     new Mat3(new Vec3(3,0,0), new Vec3(-13,-3,9), new Vec3(-3,-3,1)));
+    assertEquals(   m5.neg,                     new Mat4(t5.neg, t6.neg, t5.neg, t6.neg)                        );
+    assertEquals(   m4.neg,                     new Mat4(3,-0,-0,-3, -13,-3,9,-4, -3,-3,1,-8, -1,1,-6,-2)		);
     console.log("   Testing isIdentity:");
     assertEquals(   m1.isIdentity,              true                                                            );
     assertEquals(   m2.isIdentity,              false                                                           );
@@ -584,35 +589,38 @@ function testMat3() {
     console.log("   Testing transposed:");
     assertEquals(   m1.transposed,              m1                                                              );
     assertEquals(   m2.transposed,              m2                                                              );
-    assertEquals(   m5.transposed,              new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
+    assertEquals(   m5.transposed,              new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
-    assertEquals(   m3.determinant,             -26			                                                    );
+    assertEquals(   m3.determinant,             0			                                                    );
+    assertEquals(	m4.determinant,				-786															);
+    assertAlmostEquals(	m5.determinant,			0,														0.01	);
     console.log("   Testing inverted:");
     assertEquals(   m1.inverted,                m1.neg                                                          );  // TODO!
     assertEquals(   m2.inverted,                m1.neg                                                          );  // TODO!
     assertEquals(   m3.inverted,                m1.neg                                                          );  // TODO!
     console.log("   Testing addition:");
-    assertEquals(   m1.add(m1),                 new Mat3(2,0,0, 0,2,0, 0,0,2)			                        );
+    assertEquals(   m1.add(m1),                 new Mat4(2,0,0,0, 0,2,0,0, 0,0,2,0, 0,0,0,2)	                );
     assertEquals(   m2.add(m5),                 m5                                                              );
-    assertEquals(   m3.add(m5),                 new Mat3(t2.add(t5), t3.add(t6), t7.add(t5))                    );
+    assertEquals(   m3.add(m5),                 new Mat4(t2.add(t5), t3.add(t6), t7.add(t5), t2.add(t6))		);
     assertEquals(   m4.add(m5),                 m5.add(m4)                                                      );
     console.log("   Testing subtraction:");
     assertEquals(   m1.sub(m1),                 m2                                                              );
     assertEquals(   m5.sub(m5),                 m2                                                              );
-    assertEquals(   m3.sub(m5),                 new Mat3(t2.sub(t5), t3.sub(t6), t7.sub(t5))					);
+    assertEquals(   m3.sub(m5),                 new Mat4(t2.sub(t5), t3.sub(t6), t7.sub(t5), t2.sub(t6))		);
     assertEquals(   m4.sub(m5),                 m4.add(m5.neg)                                                  );
+    assertEquals(	m2.sub(m5),					m5.neg 															);
     console.log("   Testing scalar multiplication:");
     assertEquals(   m5.mul(0),                  m2                                                              );
-    assertEquals(   m1.mul(-3),                 new Mat3(-3,0,0, 0,-3,0, 0,0,-3)		                        );
+    assertEquals(   m1.mul(-3),                 new Mat4(-3,0,0,0, 0,-3,0,0, 0,0,-3,0, 0,0,0,-3)                );
     assertEquals(   m2.mul(-1235.6790),         m2                                                              );
-    assertEquals(   m3.mul(4),                  new Mat3(m3.col0.mul(4), m3.col1.mul(4), m3.col2.mul(4))	    );
+    assertEquals(   m3.mul(4),                  new Mat4(m3.col0.mul(4), m3.col1.mul(4), m3.col2.mul(4), m3.col3.mul(4)));
     console.log("   Testing scalar division:");
-    assertEquals(   m5.div(-3.3),               new Mat3(m5.col0.div(-3.3), m5.col1.div(-3.3), m5.col2.div(-3.3)));
-    assertEquals(   m1.div(4),                  new Mat3(1/4,0,0, 0,1/4,0, 0,0,1/4)                      		);
+    assertEquals(   m5.div(-3.3),               new Mat4(m5.col0.div(-3.3), m5.col1.div(-3.3), m5.col2.div(-3.3), m5.col3.div(-3.3)));
+    assertEquals(   m1.div(4),                  new Mat4(1/4,0,0,0, 0,1/4,0,0, 0,0,1/4,0, 0,0,0,1/4)       		);
     assertEquals(   m2.div(-1235.6790),         m2                                                              );
-    assertEquals(   m3.div(4),                  new Mat3(m3.col0.div(4), m3.col1.div(4), m3.col2.div(4))	    );
+    assertEquals(   m3.div(4),                  new Mat4(m3.col0.div(4), m3.col1.div(4), m3.col2.div(4), m3.col3.div(4)));
     {
         let threw = false;
         let res;
@@ -626,13 +634,15 @@ function testMat3() {
    	console.log("   Testing matrix-vector multiplication:");
     assertEquals(   m1.mul(t5),                 t5                                                              );
     assertEquals(   m5.mul(t1),                 t1                                                              );
-    assertEquals(   m3.mul(t2),                 new Vec3(-4,79,27)							              		);
+    assertEquals(   m3.mul(t2),                 new Vec4(8,107,45,14)						              		);
+    assertEquals(   m4.mul(t5),                 new Vec4(-131414569,-2275744,14498862,103118757)				);
     assertEquals(   m2.mul(t5),                 t1											                    );
     console.log("   Testing matrix multiplication:");
     assertEquals(   m1.mul(m5),                 m5                                                              );
     assertEquals(   m5.mul(m1),                 m5                                                              );
-    assertEquals(   m3.mul(m4),                 new Mat3(-9,-21,-6, 63,106,35, 9,44,15)			                );
-    assertEquals(   m4.mul(m3),                 new Mat3(88,27,-65, 116,33,-75, 22,3,-9)	                    );
+    assertEquals(   m5.mul(m2),                 m2                                                              );
+    assertEquals(   m3.mul(m4),                 new Mat4(0,0,0,0, 75, 134,-2,62,33, 100,26,38,-8,19,33,14)		);
+    assertEquals(   m4.mul(m3),                 new Mat4(92,23,-41,61, 114,35,-87,49, 37,18,-14,35, 92,23,-41,61));
 
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");

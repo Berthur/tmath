@@ -421,7 +421,7 @@ class Mat4 {
     			this._col2.x === 0 && this._col2.y === 0 && this._col2.z === 1 && this._col2.w === 0 &&
     			this._col3.x === 0 && this._col3.y === 0 && this._col3.z === 0 && this._col3.w === 1;
    	}
-    get toString() { return `(${ this._col0.x }\t\t${ this._col1.x }\t\t${ this._col2.x }\t\t${ this._col3.x })\n(${ this._col0.y }\t\t${ this._col1.y }\t\t${ this._col2.y }\t\t${ this._col3.y })\n(${ this._col0.z }\t\t${ this._col1.z }\t\t${ this._col2.z }\t\t${ this._col3.z })\n(${ this._col0.w }\t\t${ this._col1.w }\t\t${ this._col2.w }\t\t${ this._col3.w })\n`; }
+    get toString() { return `(${ this._col0.x }\t\t${ this._col1.x }\t\t${ this._col2.x }\t\t${ this._col3.x })\n(${ this._col0.y }\t\t${ this._col1.y }\t\t${ this._col2.y }\t\t${ this._col3.y })\n(${ this._col0.z }\t\t${ this._col1.z }\t\t${ this._col2.z }\t\t${ this._col3.z })\n(${ this._col0.w }\t\t${ this._col1.w }\t\t${ this._col2.w }\t\t${ this._col3.w })`; }
     get transposed() { return new this.constructor(		this._col0.x,this._col1.x,this._col2.x,this._col3.x,
     													this._col0.y,this._col1.y,this._col2.y,this._col3.y,
     													this._col0.z,this._col1.z,this._col2.z,this._col3.z,
@@ -432,10 +432,10 @@ class Mat4 {
     	let v1 = new Vec3(this._col1.y, this._col1.z, this._col1.w);
     	let v2 = new Vec3(this._col2.y, this._col2.z, this._col2.w);
     	let v3 = new Vec3(this._col3.y, this._col3.z, this._col3.w);
-    	return 		this._col0.x * new Mat3(v1,v2,v3).determinant +
-    				this._col1.x * new Mat3(v0,v2,v3).determinant +
-    				this._col2.x * new Mat3(v0,v1,v3).determinant +
-    				this._col3.x * new Mat3(v0,v1,v2).determinant;
+    	return 		this._col0.x * new Mat3(v1,v2,v3).determinant
+    			-	this._col1.x * new Mat3(v0,v2,v3).determinant
+    			+	this._col2.x * new Mat3(v0,v1,v3).determinant
+    			-	this._col3.x * new Mat3(v0,v1,v2).determinant;
     }
 
     equals(other) {
