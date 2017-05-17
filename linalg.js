@@ -157,6 +157,7 @@ class Vec4 {
     get y() { return this._y; }
     get z() { return this._z; }
     get w() { return this._w; }
+    get xyz() { return new Vec3(this._x, this._y, this._z) }
     get length() { return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w); }
     get lengthSqr() { return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w; }
     get neg() { return new this.constructor(-this._x, -this._y, -this._z, -this._w); }
@@ -429,6 +430,7 @@ class Mat4 {
     get row1() { return new Vec4(this._col0.y, this._col1.y, this._col2.y, this._col3.y); }
     get row2() { return new Vec4(this._col0.z, this._col1.z, this._col2.z, this._col3.z); }
     get row3() { return new Vec4(this._col0.w, this._col1.w, this._col2.w, this._col3.w); }
+    get toMat3() { return new Mat3(this._col0.xyz, this._col1.xyz, this._col2.xyz); }
    	get neg() { return new this.constructor(this.col0.neg, this.col1.neg, this._col2.neg, this._col3.neg); }
     get isIdentity() {
     	return 	this._col0.x === 1 && this._col0.y === 0 && this._col0.z === 0 && this._col0.w === 0 &&

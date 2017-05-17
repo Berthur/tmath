@@ -33,6 +33,24 @@ function assertDoesNotEqual(obj1, obj2) {
     assert(res, `assertEquals(): "${obj1.toString} equals ${obj2.toString}, even though it shouldn't."`);
 }
 
+function testAll() {
+	var totalErrors = 0;
+	testVec2();
+	totalErrors += errors;
+	testVec3();
+	totalErrors += errors;
+	testVec4();
+	totalErrors += errors;
+	testMat2();
+	totalErrors += errors;
+	testMat3();
+	totalErrors += errors;
+	testMat4();
+	totalErrors += errors;
+	if (totalErrors === 0) console.log("\n////// ALL TESTS PASSED \\\\\\\\\\\\");
+	else console.log("\n//////// " + totalErrors + "TOTAL ERRORS \\\\\\\\\\\\");
+}
+
 
 function testVec2() {
     errors = tests = 0;
@@ -243,7 +261,6 @@ function testVec3() {
     } else {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
-    errors = tests = 0;
 }
 
 function testVec4() {
@@ -267,8 +284,10 @@ function testVec4() {
     assertEquals(   t6.toString,                "Vec4(3.173, -0.6632, 1.11537, 0.00145)");
     console.log("   Testing component getters:");
     assertEquals(   t1.w,                       t1.y                                );
-    assertEquals(   t4.w,                       1                                  );
+    assertEquals(   t4.w,                       1                                  	);
     assertEquals(   t6.w,                       0.00145                             );
+    assertEquals(   t1.xyz,                    	new Vec3(0,0,0)                     );
+    assertEquals(   t3.xyz,                    	new Vec3(-1,8,2)                    );
     console.log("   Testing equality:");
     assertEquals(   t1,                         t1                                  );
     assertEquals(   t2,                         new Vec4(3, 7, 2, 3)                );
@@ -296,7 +315,7 @@ function testVec4() {
     console.log("   Testing vector subtraction:");
     assertEquals(   t6.sub(t1),                 t6                                  );
     assertEquals(   t4.sub(t2),                 new Vec4(-7, -7, -5, -2)            );
-    assertEquals(   t1.sub(t3),                 new Vec4(1, -8, -2, 3)             );
+    assertEquals(   t1.sub(t3),                 new Vec4(1, -8, -2, 3)             	);
     assertEquals(   t1.sub(t6),                 t6.neg                              );
     console.log("   Testing scalar multiplication:");
     assertEquals(   t1.mul(-123456.789),         t1                                 );
@@ -345,7 +364,6 @@ function testVec4() {
     } else {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
-    errors = tests = 0;
 }
 
 function testMat2() {
@@ -447,7 +465,6 @@ function testMat2() {
     } else {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
-    errors = tests = 0;
 }
 
 function testMat3() {
@@ -551,7 +568,6 @@ function testMat3() {
     } else {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
-    errors = tests = 0;
 }
 
 function testMat4() {
@@ -586,6 +602,8 @@ function testMat4() {
     assertEquals(	m4.col3,					new Vec4(1,-1,6,2)												);
     assertEquals(	m4.row3,					new Vec4(3,4,8,2)												);
     assertEquals(	m5.row3,					new Vec4(t5.w, t6.w, t5.w, t6.w)								);
+    assertEquals(	m1.toMat3,					new Mat3(1,0,0, 0,1,0, 0,0,1)									);
+    assertEquals(	m4.toMat3,					new Mat3(-3,0,0, 13,3,-9, 3,3,-1)								);
     console.log("   Testing equality:");
     assertEquals(   m5,                         m5                                                              );
     assertEquals(   m1,                         new Mat4()                                                      );
@@ -661,5 +679,4 @@ function testMat4() {
     } else {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
-    errors = tests = 0;
 }
