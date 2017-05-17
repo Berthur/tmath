@@ -251,8 +251,10 @@ class Mat2 {
     			this._col1.x === 0 && this._col1.y === 1;
    	}
     get toString() { return `(${ this._col0.x }\t\t${ this._col1.x })\n(${ this._col0.y }\t\t${ this._col1.y })`; }
-    get transposed() { return new this.constructor(new Vec2(this._col0.x, this._col1.x), new Vec2(this._col0.y, this._col1.y)); }
-    get inverted() { return new this.constructor(); }		 // TODO!
+    get transpose() { return new this.constructor(new Vec2(this._col0.x, this._col1.x), new Vec2(this._col0.y, this._col1.y)); }
+    get inverse() {
+    	return new Mat2(this._col1.y, -this._col0.y, -this._col1.x, this._col0.x).div(this.determinant);
+    }
     get determinant() { return this._col0.x * this._col1.y - this._col0.y * this._col1.x; }
 
     equals(other) {
@@ -276,7 +278,7 @@ class Mat2 {
                 return new this.constructor(this._col0.mul(other), this._col1.mul(other));
             case 'object':
             	if (other.type === this._col0.type) {
-            		let t = this.transposed;
+            		let t = this.transpose;
             		return new this._col0.constructor(t.col0.dot(other), t.col1.dot(other));
             	}
                 if (other.type === this._type) {
@@ -339,8 +341,25 @@ class Mat3 {
     			this._col2.x === 0 && this._col2.y === 0 && this._col2.z === 1;
    	}
     get toString() { return `(${ this._col0.x }\t\t${ this._col1.x }\t\t${ this._col2.x })\n(${ this._col0.y }\t\t${ this._col1.y }\t\t${ this._col2.y})\n(${ this._col0.z }\t\t${ this._col1.z }\t\t${ this._col2.z})`; }
-    get transposed() { return new this.constructor(new Vec3(this._col0.x, this._col1.x, this._col2.x), new Vec3(this._col0.y, this._col1.y, this._col2.y), new Vec3(this._col0.z, this._col1.z, this._col2.z)); }
-    get inverted() { return new this.constructor(); }		 // TODO!
+    get transpose() {
+    	return new this.constructor(this._col0.x, this._col1.x, this._col2.x,
+    								this._col0.y, this._col1.y, this._col2.y,
+    								this._col0.z, this._col1.z, this._col2.z);
+    }
+    get inverse() {
+    	function det2(a,b,c,d) { return a*d - b*c; }
+    	return new Mat3(
+	    	det2(	this._col1.y,	this._col2.y,	this._col1.z,	this._col2.z	),
+	    	-det2(	this._col1.x,	this._col2.x,	this._col1.z,	this._col2.z	),
+	    	det2(	this._col1.x,	this._col2.x,	this._col1.y,	this._col2.y	),
+	    	-det2(	this._col0.y,	this._col2.y,	this._col0.z,	this._col2.z	),
+	    	det2(	this._col0.x,	this._col2.x,	this._col0.z,	this._col2.z	),
+	    	-det2(	this._col0.x,	this._col2.x,	this._col0.y,	this._col2.y	),
+	    	det2(	this._col0.y,	this._col1.y,	this._col0.z,	this._col1.z	),
+	    	-det2(	this._col0.x,	this._col1.x,	this._col0.z,	this._col1.z	),
+	    	det2(	this._col0.x,	this._col1.x,	this._col0.y,	this._col1.y	),
+    	).transpose.div(this.determinant);
+    }
     get determinant() {
     	return 		this._col0.x * this._col1.y * this._col2.z
 				+	this._col1.x * this._col2.y * this._col0.z
@@ -371,7 +390,7 @@ class Mat3 {
                 return new this.constructor(this._col0.mul(other), this._col1.mul(other), this._col2.mul(other));
             case 'object':
             	if (other.type === this._col0.type) {
-            		let t = this.transposed;
+            		let t = this.transpose;
             		return new this._col0.constructor(t.col0.dot(other), t.col1.dot(other), t.col2.dot(other));
             	}
                 if (other.type === this._type) {
@@ -442,11 +461,33 @@ class Mat4 {
     			this._col3.x === 0 && this._col3.y === 0 && this._col3.z === 0 && this._col3.w === 1;
    	}
     get toString() { return `(${ this._col0.x }\t\t${ this._col1.x }\t\t${ this._col2.x }\t\t${ this._col3.x })\n(${ this._col0.y }\t\t${ this._col1.y }\t\t${ this._col2.y }\t\t${ this._col3.y })\n(${ this._col0.z }\t\t${ this._col1.z }\t\t${ this._col2.z }\t\t${ this._col3.z })\n(${ this._col0.w }\t\t${ this._col1.w }\t\t${ this._col2.w }\t\t${ this._col3.w })`; }
-    get transposed() { return new this.constructor(		this._col0.x,this._col1.x,this._col2.x,this._col3.x,
-    													this._col0.y,this._col1.y,this._col2.y,this._col3.y,
-    													this._col0.z,this._col1.z,this._col2.z,this._col3.z,
-    													this._col0.w,this._col1.w,this._col2.w,this._col3.w); }
-    get inverted() { return new this.constructor(); }		 // TODO!
+    get transpose() {
+    	return new this.constructor(this._col0.x,this._col1.x,this._col2.x,this._col3.x,
+    								this._col0.y,this._col1.y,this._col2.y,this._col3.y,
+    								this._col0.z,this._col1.z,this._col2.z,this._col3.z,
+    								this._col0.w,this._col1.w,this._col2.w,this._col3.w);
+    }
+    get inverse() {
+    	function det2(a,b,c, d,e,f, g,h,i) { return new Mat3(a,d,g, b,e,h, c,f,i).determinant; }
+    	return new Mat4(
+	    	det2(	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
+	    	-det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
+	    	det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.w, this._col2.w, this._col3.w ),
+	    	-det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z ),
+	    	-det2(	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
+	    	det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
+	    	-det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.w, this._col2.w, this._col3.w ),
+	    	det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z ),
+	    	det2(	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
+	    	-det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
+	    	det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.w, this._col1.w, this._col3.w ),
+	    	-det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z ),
+	    	-det2(	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
+	    	det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
+	    	-det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.w, this._col1.w, this._col2.w ),
+	    	det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z ),
+    	).transpose.div(this.determinant);
+    }
     get determinant() {
     	let v0 = new Vec3(this._col0.y, this._col0.z, this._col0.w);
     	let v1 = new Vec3(this._col1.y, this._col1.z, this._col1.w);
@@ -479,7 +520,7 @@ class Mat4 {
                 return new this.constructor(this._col0.mul(other), this._col1.mul(other), this._col2.mul(other), this._col3.mul(other));
             case 'object':
             	if (other.type === this._col0.type) {
-            		let t = this.transposed;
+            		let t = this.transpose;
             		return new this._col0.constructor(t.col0.dot(other), t.col1.dot(other), t.col2.dot(other), t.col3.dot(other));
             	}
                 if (other.type === this._type) {

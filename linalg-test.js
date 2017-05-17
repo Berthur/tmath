@@ -22,7 +22,7 @@ function assertEquals(obj1, obj2) {
 }
 
 function assertAlmostEquals(cand, ref, threshold) {
-	Math.abs(ref - cand) <= threshold;
+	assert(Math.abs(ref - cand) <= threshold, `assertAlmostEquals(): "${ cand } does not equal ${ ref }, within a ${ threshold } threshold."`);
 }
 
 function assertDoesNotEqual(obj1, obj2) {
@@ -422,18 +422,30 @@ function testMat2() {
     assertEquals(   m1.isIdentity,              true                                                            );
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
-    console.log("   Testing transposed:");
-    assertEquals(   m1.transposed,              m1                                                              );
-    assertEquals(   m2.transposed,              m2                                                              );
-    assertEquals(   m5.transposed,              new Mat2(new Vec2(t5.x, t6.x), new Vec2(t5.y, t6.y))            );
+    console.log("   Testing transpose:");
+    assertEquals(   m1.transpose,              m1                                                              );
+    assertEquals(   m2.transpose,              m2                                                              );
+    assertEquals(   m5.transpose,              new Mat2(new Vec2(t5.x, t6.x), new Vec2(t5.y, t6.y))            );
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
     assertEquals(   m3.determinant,             3*8 - (-1)*7                                                    );
-    console.log("   Testing inverted:");
-    assertEquals(   m1.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m2.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m3.inverted,                m1.neg                                                          );  // TODO!
+    console.log("   Testing inverse:");
+    assertEquals(   m1.inverse,                	m1                                                          );
+    {
+    	let invCand = m3.inverse;
+    	assertAlmostEquals(	invCand.col0.x,		0.258065,		0.001);
+    	assertAlmostEquals(	invCand.col0.y,		-0.225806,		0.001);
+    	assertAlmostEquals(	invCand.col1.x,		0.032258,		0.001);
+    	assertAlmostEquals(	invCand.col1.y,		0.096774,		0.001);
+    }
+    {
+    	let invCand = m4.inverse;
+    	assertAlmostEquals(	invCand.col0.x,		-0.33333,		0.001);
+    	assertAlmostEquals(	invCand.col0.y,		0,				0.001);
+    	assertAlmostEquals(	invCand.col1.x,		0,				0.001);
+    	assertAlmostEquals(	invCand.col1.y,		0.07692,		0.001);
+    }
     console.log("   Testing addition:");
     assertEquals(   m1.add(m1),                 new Mat2(new Vec2(2,0), new Vec2(0,2))                          );
     assertEquals(   m2.add(m5),                 m5                                                              );
@@ -525,18 +537,40 @@ function testMat3() {
     assertEquals(   m1.isIdentity,              true                                                            );
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
-    console.log("   Testing transposed:");
-    assertEquals(   m1.transposed,              m1                                                              );
-    assertEquals(   m2.transposed,              m2                                                              );
-    assertEquals(   m5.transposed,              new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
+    console.log("   Testing transpose:");
+    assertEquals(   m1.transpose,              m1                                                              );
+    assertEquals(   m2.transpose,              m2                                                              );
+    assertEquals(   m5.transpose,              new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
     assertEquals(   m3.determinant,             -26			                                                    );
-    console.log("   Testing inverted:");
-    assertEquals(   m1.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m2.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m3.inverted,                m1.neg                                                          );  // TODO!
+    console.log("   Testing inverse:");
+    assertEquals(   m1.inverse,                	m1                                                          );
+    {
+    	let invCand = m3.inverse;
+    	assertAlmostEquals(	invCand.col0.x,		0.115385,		0.001);
+    	assertAlmostEquals(	invCand.col0.y,		-0.076923,		0.001);
+    	assertAlmostEquals(	invCand.col0.z,		-0.192308,		0.001);
+    	assertAlmostEquals(	invCand.col1.x,		0.346154,		0.001);
+    	assertAlmostEquals(	invCand.col1.y,		-0.230769,		0.001);
+    	assertAlmostEquals(	invCand.col1.z,		0.423077,		0.001);
+    	assertAlmostEquals(	invCand.col2.x,		-0.884615,		0.001);
+    	assertAlmostEquals(	invCand.col2.y,		0.923077,		0.001);
+    	assertAlmostEquals(	invCand.col2.z,		-1.192308,		0.001);
+    }
+    {
+    	let invCand = m4.inverse;
+    	assertAlmostEquals(	invCand.col0.x,		-0.33333,		0.001);
+    	assertAlmostEquals(	invCand.col0.y,		0,				0.001);
+    	assertAlmostEquals(	invCand.col0.z,		0,				0.001);
+    	assertAlmostEquals(	invCand.col1.x,		0.19444,		0.001);
+    	assertAlmostEquals(	invCand.col1.y,		-0.04167,		0.001);
+    	assertAlmostEquals(	invCand.col1.z,		0.37500,		0.001);
+    	assertAlmostEquals(	invCand.col2.x,		-0.41667,		0.001);
+    	assertAlmostEquals(	invCand.col2.y,		-0.12500,		0.001);
+    	assertAlmostEquals(	invCand.col2.z,		0.12500,		0.001);
+    }
     console.log("   Testing addition:");
     assertEquals(   m1.add(m1),                 new Mat3(2,0,0, 0,2,0, 0,0,2)			                        );
     assertEquals(   m2.add(m5),                 m5                                                              );
@@ -631,20 +665,37 @@ function testMat4() {
     assertEquals(   m1.isIdentity,              true                                                            );
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
-    console.log("   Testing transposed:");
-    assertEquals(   m1.transposed,              m1                                                              );
-    assertEquals(   m2.transposed,              m2                                                              );
-    assertEquals(   m5.transposed,              new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
+    console.log("   Testing transpose:");
+    assertEquals(   m1.transpose,              m1                                                              );
+    assertEquals(   m2.transpose,              m2                                                              );
+    assertEquals(   m5.transpose,              new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
     assertEquals(   m3.determinant,             0			                                                    );
     assertEquals(	m4.determinant,				-786															);
     assertAlmostEquals(	m5.determinant,			0,														0.01	);
-    console.log("   Testing inverted:");
-    assertEquals(   m1.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m2.inverted,                m1.neg                                                          );  // TODO!
-    assertEquals(   m3.inverted,                m1.neg                                                          );  // TODO!
+    console.log("   Testing inverse:");
+    assertEquals(   m1.inverse,                	m1                                                          );
+    {
+    	let invCand = m4.inverse;
+    	assertAlmostEquals(	invCand.col0.x,		-0.055980,		0.001);
+    	assertAlmostEquals(	invCand.col0.y,		0.064885,		0.001);
+    	assertAlmostEquals(	invCand.col0.z,		-0.034351,		0.001);
+    	assertAlmostEquals(	invCand.col0.w,		0.091603,		0.001);
+    	assertAlmostEquals(	invCand.col1.x,		-0.753181,		0.001);
+    	assertAlmostEquals(	invCand.col1.y,		-0.263359,		0.001);
+    	assertAlmostEquals(	invCand.col1.z,		0.492366,		0.001);
+    	assertAlmostEquals(	invCand.col1.w,		-0.312977,		0.001);
+    	assertAlmostEquals(	invCand.col2.x,		-0.208651,		0.001);
+    	assertAlmostEquals(	invCand.col2.y,		-0.076336,		0.001);
+    	assertAlmostEquals(	invCand.col2.z,		0.099237,		0.001);
+    	assertAlmostEquals(	invCand.col2.w,		0.068702,		0.001);
+    	assertAlmostEquals(	invCand.col3.x,		0.277354,		0.001);
+    	assertAlmostEquals(	invCand.col3.y,		0.064885,		0.001);
+    	assertAlmostEquals(	invCand.col3.z,		-0.034351,		0.001);
+    	assertAlmostEquals(	invCand.col3.w,		0.091603,		0.001);
+    }
     console.log("   Testing addition:");
     assertEquals(   m1.add(m1),                 new Mat4(2,0,0,0, 0,2,0,0, 0,0,2,0, 0,0,0,2)	                );
     assertEquals(   m2.add(m5),                 m5                                                              );
