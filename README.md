@@ -21,10 +21,11 @@ m.determinant
 ```
 
 ```javascript
-let result_vector = m .mul(new Mat3(1,2,3, 4,5,6, 7,8,9))
-                      .transpose
+let result_vector =  m.add(new Mat3(1,2,3, 4,5,6, 7,8,9))
+                      .inverse
                       .div(3.14159)
-                      .neg.mul(u);
+                      .neg
+                      .mul(u);
 result_vector.z
->> 347.5946893133732
+>> 1.7507058527688208
 ```
