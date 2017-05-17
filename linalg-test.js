@@ -90,6 +90,11 @@ function testVec2() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec2(1, -8)                     );
     assertEquals(   t6.neg,                     new Vec2(-3.173, 0.6632)            );
+    console.log("	Testing normalization:")
+    assertAlmostEquals(	t2.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t5.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t6.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t7.normalized.length,       1,					0.001		);
     console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
@@ -193,6 +198,11 @@ function testVec3() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec3(1, -8, -2)                 );
     assertEquals(   t6.neg,                     new Vec3(-3.173, 0.6632, -1.11537)  );
+    console.log("	Testing normalization:")
+    assertAlmostEquals(	t2.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t5.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t6.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t7.normalized.length,       1,					0.001		);
     console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
@@ -303,6 +313,11 @@ function testVec4() {
     assertEquals(   t1.neg,                     t1                                  );
     assertEquals(   t3.neg,                     new Vec4(1, -8, -2, 3)              );
     assertEquals(   t6.neg,                     new Vec4(-3.173, 0.6632, -1.11537, -0.00145));
+    console.log("	Testing normalization:")
+    assertAlmostEquals(	t2.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t5.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t6.normalized.length,       1,					0.001		);
+    assertAlmostEquals(	t7.normalized.length,       1,					0.001		);
     console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );

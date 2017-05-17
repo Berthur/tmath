@@ -18,6 +18,7 @@ class Vec2 {
     get length() { return Math.sqrt(this._x * this._x + this._y * this._y); }
     get lengthSqr() { return this._x * this._x + this._y * this._y; }
     get neg() { return new this.constructor(-this._x, -this._y); }
+    get normalized() { return this.div(this.length); }
     get isZero() { return this._x === 0 && this._y === 0; }
     get toString() { return `${ this._type }(${ this._x }, ${ this._y })`; }
 
@@ -85,6 +86,7 @@ class Vec3 {
     get length() { return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z); }
     get lengthSqr() { return this._x * this._x + this._y * this._y + this._z * this._z; }
     get neg() { return new this.constructor(-this._x, -this._y, -this._z); }
+    get normalized() { return this.div(this.length); }
     get isZero() { return this._x === 0 && this._y === 0 && this._z === 0; }
     get toString() { return `${ this._type }(${ this._x }, ${ this._y }, ${ this._z })`; }
 
@@ -161,6 +163,7 @@ class Vec4 {
     get length() { return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w); }
     get lengthSqr() { return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w; }
     get neg() { return new this.constructor(-this._x, -this._y, -this._z, -this._w); }
+    get normalized() { return this.div(this.length); }
     get isZero() { return this._x === 0 && this._y === 0 && this._z === 0 && this._w === 0; }
     get toString() { return `${ this._type }(${ this._x }, ${ this._y }, ${ this._z }, ${ this._w })`; }
 
