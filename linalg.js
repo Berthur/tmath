@@ -1,9 +1,12 @@
 
-var errors = {
-	invalidArgument: 'Invalid function argument.',
-	scalarDivisionByZero: 'Scalar division by zero not allowed.',
-	pointwiseDivisionByZero: 'Pointwise division by zero not allowed.',
+TMATH = {
+	errors: {
+		invalidArgument: 'Invalid function argument.',
+		scalarDivisionByZero: 'Scalar division by zero not allowed.',
+		pointwiseDivisionByZero: 'Pointwise division by zero not allowed.',
+	}
 }
+
 
 class Vec2 {
     constructor(x, y) {
@@ -25,7 +28,7 @@ class Vec2 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x === other.x && this._y === other.y;
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
 	}
     mul(other) {
         switch(typeof(other)) {
@@ -34,34 +37,34 @@ class Vec2 {
             case 'object':
                 if (other.type === this._type) {
                     return new this.constructor(this._x * other.x, this._y * other.y);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw errors.scalarDivisionByZero;
+                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw errors.pointwiseDivisionByZero;
+                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x + other.x, this._y + other.y);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
 
 
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x - other.x, this._y - other.y);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
@@ -93,7 +96,7 @@ class Vec3 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x === other.x && this._y === other.y && this._z === other.z;
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     mul(other) {
         switch(typeof(other)) {
@@ -102,34 +105,34 @@ class Vec3 {
             case 'object':
                 if (other.type === this._type) {
                     return new this.constructor(this._x * other.x, this._y * other.y, this._z * other.z);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw errors.scalarDivisionByZero;
+                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other, this._z / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw errors.pointwiseDivisionByZero;
+                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y, this._z / other.z);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x + other.x, this._y + other.y, this._z + other.z);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
 
 
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x - other.x, this._y - other.y, this._z - other.z);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
@@ -170,7 +173,7 @@ class Vec4 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x === other.x && this._y === other.y && this._z === other.z && this._w === other.w;
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     mul(other) {
         switch(typeof(other)) {
@@ -179,34 +182,34 @@ class Vec4 {
             case 'object':
                 if (other.type === this._type) {
                     return new this.constructor(this._x * other.x, this._y * other.y, this._z * other.z, this._w * other.w);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw errors.scalarDivisionByZero;
+                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other, this._z / other, this._w / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw errors.pointwiseDivisionByZero;
+                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y, this._z / other.z, this._w / other.w);
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x + other.x, this._y + other.y, this._z + other.z, this._w + other.w);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
 
 
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._x - other.x, this._y - other.y, this._z - other.z, this._w - other.w);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
@@ -230,13 +233,13 @@ class Mat2 {
 				this._col0 = new Vec2(arguments[0], arguments[0]);
 				this._col1 = new Vec2(arguments[0], arguments[0]);
 			} else {
-				throw errors.invalidArgument;
+				throw TMATH.errors.invalidArgument;
 			}
 		} else if (typeof(arguments[0]) === 'object' && typeof(arguments[1]) === 'object' && arguments[0].type === 'Vec2' && arguments[1].type === 'Vec2') {
 			this._col0 = arguments[0];
 			this._col1 = arguments[1];
 		} else {
-			throw errors.invalidArgument;
+			throw TMATH.errors.invalidArgument;
 		}
 	}
 
@@ -260,17 +263,17 @@ class Mat2 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this.col0.equals(other.col0) && this.col1.equals(other.col1);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.add(other.col0), this._col1.add(other.col1));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.sub(other.col0), this._col1.sub(other.col1));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     mul(other) {
     	switch(typeof(other)) {
@@ -283,16 +286,16 @@ class Mat2 {
             	}
                 if (other.type === this._type) {
                 	return new this.constructor(this.mul(other.col0), this.mul(other.col1));
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw errors.scalarDivisionByZero;
+            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other));
-            default: throw errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
 
@@ -315,7 +318,7 @@ class Mat3 {
 				this._col1 = new Vec3(arguments[0], arguments[0], arguments[0]);
 				this._col2 = new Vec3(arguments[0], arguments[0], arguments[0]);
 			} else {
-				throw errors.invalidArgument;
+				throw TMATH.errors.invalidArgument;
 			}
 		} else if (	typeof(arguments[0]) === 'object' && typeof(arguments[1]) === 'object' && typeof(arguments[2]) === 'object' &&
 					arguments[0].type === 'Vec3' && arguments[1].type === 'Vec3' && arguments[2].type === 'Vec3') {
@@ -323,7 +326,7 @@ class Mat3 {
 			this._col1 = arguments[1];
 			this._col2 = arguments[2];
 		} else {
-			throw errors.invalidArgument;
+			throw TMATH.errors.invalidArgument;
 		}
 	}
 
@@ -372,17 +375,17 @@ class Mat3 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this.col0.equals(other.col0) && this.col1.equals(other.col1) && this._col2.equals(other.col2);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.add(other.col0), this._col1.add(other.col1), this._col2.add(other.col2));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.sub(other.col0), this._col1.sub(other.col1), this._col2.sub(other.col2));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     mul(other) {
     	switch(typeof(other)) {
@@ -395,16 +398,16 @@ class Mat3 {
             	}
                 if (other.type === this._type) {
                 	return new this.constructor(this.mul(other.col0), this.mul(other.col1), this.mul(other.col2));
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw errors.scalarDivisionByZero;
+            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other), this._col2.div(other));
-            default: throw errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
 
@@ -430,7 +433,7 @@ class Mat4 {
 				this._col2 = new Vec4(arguments[0], arguments[0], arguments[0], arguments[0]);
 				this._col3 = new Vec4(arguments[0], arguments[0], arguments[0], arguments[0]);
 			} else {
-				throw errors.invalidArgument;
+				throw TMATH.errors.invalidArgument;
 			}
 		} else if (	typeof(arguments[0]) === 'object' && typeof(arguments[1]) === 'object' && typeof(arguments[2]) === 'object' && typeof(arguments[3] === 'object') &&
 					arguments[0].type === 'Vec4' && arguments[1].type === 'Vec4' && arguments[2].type === 'Vec4' && arguments[3].type === 'Vec4') {
@@ -439,7 +442,7 @@ class Mat4 {
 			this._col2 = arguments[2];
 			this._col3 = arguments[3];
 		} else {
-			throw errors.invalidArgument;
+			throw TMATH.errors.invalidArgument;
 		}
 	}
 
@@ -502,17 +505,17 @@ class Mat4 {
     equals(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this.col0.equals(other.col0) && this.col1.equals(other.col1) && this._col2.equals(other.col2) && this._col3.equals(other.col3);
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     add(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.add(other.col0), this._col1.add(other.col1), this._col2.add(other.col2), this._col3.add(other.col3));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     sub(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return new this.constructor(this._col0.sub(other.col0), this._col1.sub(other.col1), this._col2.sub(other.col2), this._col3.sub(other.col3));
-        } else throw errors.invalidArgument;
+        } else throw TMATH.errors.invalidArgument;
     }
     mul(other) {
     	switch(typeof(other)) {
@@ -525,16 +528,16 @@ class Mat4 {
             	}
                 if (other.type === this._type) {
                 	return new this.constructor(this.mul(other.col0), this.mul(other.col1), this.mul(other.col2), this.mul(other.col3));
-                } else throw errors.invalidArgument;
-            default: throw errors.invalidArgument;
+                } else throw TMATH.errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw errors.scalarDivisionByZero;
+            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other), this._col2.div(other), this._col3.div(other));
-            default: throw errors.invalidArgument;
+            default: throw TMATH.errors.invalidArgument;
         }
     }
 

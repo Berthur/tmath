@@ -356,11 +356,11 @@ function testVec4() {
     assertEquals(   t2.dot(t3),                 48                                  );
     assertEquals(   t8.dot(t7),                 0                                   );
     console.log("   Testing pointwise multiplication:");
-    assertEquals(   t5.mul(t1),                 new Vec4(0, 0, 0, 0)                   );
-    assertEquals(   t3.mul(t4),                 new Vec4(4, 0, -6, -3)                  );
-    assertEquals(   t6.mul(t2),                 new Vec4(9.519, -4.6424, 2.23074, 0.00435)   );
+    assertEquals(   t5.mul(t1),                 new Vec4(0, 0, 0, 0)                );
+    assertEquals(   t3.mul(t4),                 new Vec4(4, 0, -6, -3)              );
+    assertEquals(   t6.mul(t2),                 new Vec4(9.519, -4.6424, 2.23074, 0.00435));
     console.log("   Testing pointwise division:");
-    assertEquals(   t2.div(t3),                 new Vec4(-3, 7/8, 1, -1)                );
+    assertEquals(   t2.div(t3),                 new Vec4(-3, 7/8, 1, -1)            );
     assertEquals(   t1.div(t6),                 t1                                  );
     assertEquals(   t3.div(t5),                 new Vec4(-1/34645747, -8/2343434, -2/474731, -3/136347));
     {
@@ -423,15 +423,15 @@ function testMat2() {
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
     console.log("   Testing transpose:");
-    assertEquals(   m1.transpose,              m1                                                              );
-    assertEquals(   m2.transpose,              m2                                                              );
-    assertEquals(   m5.transpose,              new Mat2(new Vec2(t5.x, t6.x), new Vec2(t5.y, t6.y))            );
+    assertEquals(   m1.transpose,              	m1                                                              );
+    assertEquals(   m2.transpose,              	m2                                                              );
+    assertEquals(   m5.transpose,              	new Mat2(new Vec2(t5.x, t6.x), new Vec2(t5.y, t6.y))            );
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
     assertEquals(   m3.determinant,             3*8 - (-1)*7                                                    );
     console.log("   Testing inverse:");
-    assertEquals(   m1.inverse,                	m1                                                          );
+    assertEquals(   m1.inverse,                	m1                                                          	);
     {
     	let invCand = m3.inverse;
     	assertAlmostEquals(	invCand.col0.x,		0.258065,		0.001);
@@ -538,15 +538,15 @@ function testMat3() {
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
     console.log("   Testing transpose:");
-    assertEquals(   m1.transpose,              m1                                                              );
-    assertEquals(   m2.transpose,              m2                                                              );
+    assertEquals(   m1.transpose,              	m1                                                              );
+    assertEquals(   m2.transpose,             	m2                                                              );
     assertEquals(   m5.transpose,              new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
     assertEquals(   m3.determinant,             -26			                                                    );
     console.log("   Testing inverse:");
-    assertEquals(   m1.inverse,                	m1                                                          );
+    assertEquals(   m1.inverse,                	m1                                                          	);
     {
     	let invCand = m3.inverse;
     	assertAlmostEquals(	invCand.col0.x,		0.115385,		0.001);
@@ -666,8 +666,8 @@ function testMat4() {
     assertEquals(   m2.isIdentity,              false                                                           );
     assertEquals(   m5.isIdentity,              false                                                           );
     console.log("   Testing transpose:");
-    assertEquals(   m1.transpose,              m1                                                              );
-    assertEquals(   m2.transpose,              m2                                                              );
+    assertEquals(   m1.transpose,              	m1                                                              );
+    assertEquals(   m2.transpose,              	m2                                                              );
     assertEquals(   m5.transpose,              new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
@@ -676,7 +676,7 @@ function testMat4() {
     assertEquals(	m4.determinant,				-786															);
     assertAlmostEquals(	m5.determinant,			0,														0.01	);
     console.log("   Testing inverse:");
-    assertEquals(   m1.inverse,                	m1                                                          );
+    assertEquals(   m1.inverse,                	m1                                                          	);
     {
     	let invCand = m4.inverse;
     	assertAlmostEquals(	invCand.col0.x,		-0.055980,		0.001);
