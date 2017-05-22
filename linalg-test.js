@@ -119,7 +119,7 @@ function testVec2() {
     assertEquals(   t1.div(3),                  t1                                  );
     assertEquals(   t6.div(0.5),                t6.mul(2)                           );
     assertEquals(   t3.div(8.0),                new Vec2(-1/8, 1)                   );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -128,7 +128,7 @@ function testVec2() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${t2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
     console.log("   Testing dot product:");
     assertEquals(   t3.dot(t1),                 0                                   );
     assertEquals(   t2.dot(t3),                 53                                  );
@@ -141,7 +141,7 @@ function testVec2() {
     assertEquals(   t2.div(t3),                 new Vec2(-3, 7/8)                   );
     assertEquals(   t1.div(t6),                 t1                                  );
     assertEquals(   t3.div(t5),                 new Vec2(-1/34645747, -8/2343434)   );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -150,7 +150,7 @@ function testVec2() {
             threw = true;
         }
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
-    }
+    }*/
 
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");
@@ -227,7 +227,7 @@ function testVec3() {
     assertEquals(   t1.div(-33.8496),           t1                                  );
     assertEquals(   t6.div(0.5),                t6.mul(2)                           );
     assertEquals(   t3.div(8.0),                new Vec3(-1/8, 1, 2/8)              );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -236,7 +236,7 @@ function testVec3() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${t2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
     console.log("   Testing dot product:");
     assertEquals(   t3.dot(t1),                 0                                   );
     assertEquals(   t2.dot(t3),                 57                                  );
@@ -255,7 +255,7 @@ function testVec3() {
     assertEquals(   t2.div(t3),                 new Vec3(-3, 7/8, 1)                );
     assertEquals(   t1.div(t6),                 t1                                  );
     assertEquals(   t3.div(t5),                 new Vec3(-1/34645747, -8/2343434, -2/474731));
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -264,7 +264,7 @@ function testVec3() {
             threw = true;
         }
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
-    }
+    }*/
 
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");
@@ -341,7 +341,7 @@ function testVec4() {
     assertEquals(   t1.div(-33.8496),           t1                                  );
     assertEquals(   t6.div(0.5),                t6.mul(2)                           );
     assertEquals(   t3.div(8.0),                new Vec4(-1/8, 1, 2/8, -3/8)        );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -350,7 +350,7 @@ function testVec4() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${t2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
     console.log("   Testing dot product:");
     assertEquals(   t3.dot(t1),                 0                                   );
     assertEquals(   t2.dot(t3),                 48                                  );
@@ -363,7 +363,7 @@ function testVec4() {
     assertEquals(   t2.div(t3),                 new Vec4(-3, 7/8, 1, -1)            );
     assertEquals(   t1.div(t6),                 t1                                  );
     assertEquals(   t3.div(t5),                 new Vec4(-1/34645747, -8/2343434, -2/474731, -3/136347));
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -372,7 +372,7 @@ function testVec4() {
             threw = true;
         }
         assert(threw, `pointwiseDiv did not throw an error on ${t3.toString} / ${t7.toString}. Result: ${res}.`);
-    }
+    }*/
 
     if (errors === 0) {
         console.log(" >>> ALL " + tests + " TESTS PASSED.");
@@ -466,7 +466,7 @@ function testMat2() {
     assertEquals(   m1.div(4),                  new Mat2(new Vec2(1/4,0), new Vec2(0,1/4))                      );
     assertEquals(   m2.div(-1235.6790),         m2                                                              );
     assertEquals(   m3.div(4),                  new Mat2(m3.col0.div(4), m3.col1.div(4))                        );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -475,7 +475,7 @@ function testMat2() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${m2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
    	console.log("   Testing matrix-vector multiplication:");
     assertEquals(   m1.mul(t5),                 t5                                                              );
     assertEquals(   m5.mul(t1),                 t1                                                              );
@@ -591,7 +591,7 @@ function testMat3() {
     assertEquals(   m1.div(4),                  new Mat3(1/4,0,0, 0,1/4,0, 0,0,1/4)                      		);
     assertEquals(   m2.div(-1235.6790),         m2                                                              );
     assertEquals(   m3.div(4),                  new Mat3(m3.col0.div(4), m3.col1.div(4), m3.col2.div(4))	    );
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -600,7 +600,7 @@ function testMat3() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${m2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
    	console.log("   Testing matrix-vector multiplication:");
     assertEquals(   m1.mul(t5),                 t5                                                              );
     assertEquals(   m5.mul(t1),                 t1                                                              );
@@ -717,7 +717,7 @@ function testMat4() {
     assertEquals(   m1.div(4),                  new Mat4(1/4,0,0,0, 0,1/4,0,0, 0,0,1/4,0, 0,0,0,1/4)       		);
     assertEquals(   m2.div(-1235.6790),         m2                                                              );
     assertEquals(   m3.div(4),                  new Mat4(m3.col0.div(4), m3.col1.div(4), m3.col2.div(4), m3.col3.div(4)));
-    {
+    /*{
         let threw = false;
         let res;
         try {
@@ -726,7 +726,7 @@ function testMat4() {
             threw = true;
         }
         assert(threw, `div did not throw an error on ${m2.toString} / 0. Result: ${res}.`);
-    }
+    }*/
    	console.log("   Testing matrix-vector multiplication:");
     assertEquals(   m1.mul(t5),                 t5                                                              );
     assertEquals(   m5.mul(t1),                 t1                                                              );

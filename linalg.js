@@ -1,5 +1,5 @@
 
-TMATH = {
+var TMATH = {
 	errors: {
 		invalidArgument: 'Invalid function argument.',
 		scalarDivisionByZero: 'Scalar division by zero not allowed.',
@@ -44,11 +44,11 @@ class Vec2 {
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+                //if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
+                    //if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y);
                 } else throw TMATH.errors.invalidArgument;
             default: throw TMATH.errors.invalidArgument;
@@ -112,11 +112,11 @@ class Vec3 {
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+                //if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other, this._z / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
+                    //if (other.x === 0 || other.y === 0 || other.z === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y, this._z / other.z);
                 } else throw TMATH.errors.invalidArgument;
             default: throw TMATH.errors.invalidArgument;
@@ -189,11 +189,11 @@ class Vec4 {
     div(other) {
         switch(typeof(other)) {
             case 'number':
-                if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+                //if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._x / other, this._y / other, this._z / other, this._w / other);
             case 'object':
                 if (other.type === this._type) {
-                    if (other.x === 0 || other.y === 0) throw TMATH.errors.pointwiseDivisionByZero;
+                    //if (other.x === 0 || other.y === 0 || other.z === 0 || other.w === 0) throw TMATH.errors.pointwiseDivisionByZero;
                     return new this.constructor(this._x / other.x, this._y / other.y, this._z / other.z, this._w / other.w);
                 } else throw TMATH.errors.invalidArgument;
             default: throw TMATH.errors.invalidArgument;
@@ -293,7 +293,7 @@ class Mat2 {
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+            	//if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other));
             default: throw TMATH.errors.invalidArgument;
         }
@@ -405,7 +405,7 @@ class Mat3 {
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+            	//if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other), this._col2.div(other));
             default: throw TMATH.errors.invalidArgument;
         }
@@ -535,7 +535,7 @@ class Mat4 {
     div(other) {
     	switch(typeof(other)) {
             case 'number':
-            	if (other === 0) throw TMATH.errors.scalarDivisionByZero;
+            	//if (other === 0) throw TMATH.errors.scalarDivisionByZero;
                 return new this.constructor(this._col0.div(other), this._col1.div(other), this._col2.div(other), this._col3.div(other));
             default: throw TMATH.errors.invalidArgument;
         }
