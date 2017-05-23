@@ -69,7 +69,7 @@ class Vec2 {
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x * other.x + this._y * other.y;
-        }
+        } else throw TMATH.errors.invalidArgument;
     }
 
 };
@@ -137,13 +137,15 @@ class Vec3 {
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x * other.x + this._y * other.y + this._z * other.z;
-        }
+        } else throw TMATH.errors.invalidArgument;
     }
     cross(other) {
-    	let x = this._y * other.z - this._z * other.y;
-    	let y = this._z * other.x - this._x * other.z;
-    	let z = this._x * other.y - this._y * other.x;
-    	return new Vec3(x, y, z);
+    	if (typeof(other) === 'object' && other.type === this._type) {
+	    	let x = this._y * other.z - this._z * other.y;
+	    	let y = this._z * other.x - this._x * other.z;
+	    	let z = this._x * other.y - this._y * other.x;
+	    	return new Vec3(x, y, z);
+	    } else throw TMATH.errors.invalidArgument;
     }
 
 };
@@ -214,7 +216,7 @@ class Vec4 {
     dot(other) {
         if (typeof(other) === 'object' && other.type === this._type) {
             return this._x * other.x + this._y * other.y + this._z * other.z + this._w * other.w;
-        }
+        } else throw TMATH.errors.invalidArgument;
     }
 
 };
