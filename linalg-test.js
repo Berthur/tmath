@@ -746,3 +746,57 @@ function testMat4() {
         console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
     }
 }
+
+function testHelpers() {
+    errors = tests = 0;
+    console.log("___ Testing helpers: ___");
+
+    console.log("   Testing lineSegmentsIntersect():");
+    assertEquals(TMATH.lineSegmentsIntersect(
+            new Vec2(0, 0),                 new Vec2(3.57, 4.54),
+            new Vec2(2.29, 0.84),           new Vec2(-0.6, 6.02)
+    ), true);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(-3.07, -3.74),             new Vec2(-4.09, 0.66),
+        new Vec2(-1.16, 3.78),              new Vec2(1.27, 3.01)
+    ), false);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(2.45, 5.29),               new Vec2(-2.3, 3.1),
+        new Vec2(2.23, 3.41),               new Vec2(-0.6, 2.98)
+    ), false);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(2.23, 3.41),               new Vec2(-0.6, 2.98),
+        new Vec2(0.26, 3.38),               new Vec2(100000, 100000)
+    ), false);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(2.23, 3.41),               new Vec2(-0.6, 2.98),
+        new Vec2(0.26, 2),                  new Vec2(1000, 100000)
+    ), true);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(0.26, 3.38),               new Vec2(100000, 100000),
+        new Vec2(0.8, -18.7),               new Vec2(19.15, -0.94)
+    ), false);
+        assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(-2.82, -1.2),              new Vec2(-100000, -100000),
+        new Vec2(-1.13, -6.83),             new Vec2(-5000, 10000)
+    ), true);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(0.26, 3.38),               new Vec2(100000, 100000),
+        new Vec2(-5.1, 46.4),               new Vec2(-54.3, 3.25)
+    ), false);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(-13, 7.8),                 new Vec2(5.1, -7.6),
+        new Vec2(-6.7, -5.3),               new Vec2(-8.3, -7.6)
+    ), false);
+    assertEquals(TMATH.lineSegmentsIntersect(
+        new Vec2(-22, -279.4),              new Vec2(-1300.3, 4566.3),
+        new Vec2(-9.4, -281),               new Vec2(-240, 45100)
+    ), false);
+
+
+    if (errors === 0) {
+        console.log(" >>> ALL " + tests + " TESTS PASSED.");
+    } else {
+        console.log(" >>> TESTS FINISHED WITH " + errors + " errors (out of " + tests + " tests).");
+    }
+}

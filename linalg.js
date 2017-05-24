@@ -4,7 +4,39 @@ var TMATH = {
 		invalidArgument: 'Invalid function argument.',
 		scalarDivisionByZero: 'Scalar division by zero not allowed.',
 		pointwiseDivisionByZero: 'Pointwise division by zero not allowed.',
-	}
+	},
+
+	// Checks whether two line segments (a1->a2 and b1->b2) in the 2D plane intersect.
+	// If the line segments are parallel and intersect, the result is not necessarily defined.
+	// a1, a2, b1, b2 are of type Vec2.
+	lineSegmentsIntersect: function(a1, a2, b1, b2) {
+
+		// Defining bounding boxes:
+		let bba_max = new Vec2(Math.max(a1.x, a2.x), Math.max(a1.y, a2.y));
+		let bba_min = new Vec2(Math.min(a1.x, a2.x), Math.min(a1.y, a2.y));
+		let bbb_max = new Vec2(Math.max(b1.x, b2.x), Math.max(b1.y, b2.y));
+		let bbb_min = new Vec2(Math.min(b1.x, b2.x), Math.min(b1.y, b2.y));
+
+		// If bounding boxes do not intersect, neither can the line segments a and b:
+		if (bba_min.x >= bbb_max.x ||
+			bba_min.y >= bbb_max.y ||
+			bbb_min.x >= bba_max.x ||
+			bbb_min.y >= bba_max.y) return false;
+
+		// Defining the direction vectors of the line segments a and b:
+		let a = a2.sub(a1);
+		let b = b2.sub(b1);
+		if (a.lengthSqr === 0 || b.lengthSqr === 0) return false;
+
+		// Find the intersection point between the lines:
+		let t = new Mat2(a, b.neg).inverse.mul(b1.sub(a1));		// The parameter t of the line intersection equation a1 + (a2 - a1)*t_0 = b1 + (b2 - b1)*t_1
+
+		// The line segments intersect iff the intersection point of the full lines
+		// lies on both line segments:
+		if (0 < t.x && t.x < 1 &&
+			0 < t.y && t.y < 1) return true;
+		else return false;
+	},
 }
 
 
