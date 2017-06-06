@@ -55,6 +55,9 @@ class Vec2 {
     get neg() { return new this.constructor(-this._x, -this._y); }
     get normalized() { return this.div(this.length); }
     get isZero() { return this._x === 0 && this._y === 0; }
+    get toVec3() { return new Vec3(this._x, this._y, 0); }
+    get toVec4() { return new Vec4(this._x, this._y, 0, 0); }
+    get toVec4Homogeneous() { return new Vec4(this._x, this._y, 0, 1); }
     get toString() { return `${ this._type }(${ this._x }, ${ this._y })`; }
 
     equals(other) {
@@ -123,6 +126,8 @@ class Vec3 {
     get neg() { return new this.constructor(-this._x, -this._y, -this._z); }
     get normalized() { return this.div(this.length); }
     get isZero() { return this._x === 0 && this._y === 0 && this._z === 0; }
+    get toVec4() { return new Vec4(this._x, this._y, this._z, 0); }
+    get toVec4Homogeneous() { return new Vec4(this._x, this._y, this._z, 1); }
     get toString() { return `${ this._type }(${ this._x }, ${ this._y }, ${ this._z })`; }
 
     equals(other) {

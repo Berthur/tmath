@@ -95,6 +95,11 @@ function testVec2() {
     assertAlmostEquals(	t5.normalized.length,       1,					0.001		);
     assertAlmostEquals(	t6.normalized.length,       1,					0.001		);
     assertAlmostEquals(	t7.normalized.length,       1,					0.001		);
+    console.log("   Testing vector converters:");
+    assertEquals(   t1.toVec3,                  new Vec3(0, 0, 0)                   );
+    assertEquals(   t3.toVec3,                  new Vec3(-1, 8, 0)                  );
+    assertEquals(   t6.toVec4,                  new Vec4(3.173, -0.6632, 0, 0)      );
+    assertEquals(   t2.toVec4Homogeneous,       new Vec4(3, 7, 0, 1)                );
     console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
@@ -203,6 +208,10 @@ function testVec3() {
     assertAlmostEquals(	t5.normalized.length,       1,					0.001		);
     assertAlmostEquals(	t6.normalized.length,       1,					0.001		);
     assertAlmostEquals(	t7.normalized.length,       1,					0.001		);
+    console.log("   Testing vector converters:");
+    assertEquals(   t1.toVec4,                  new Vec4(0, 0, 0, 0)                );
+    assertEquals(   t6.toVec4,                  new Vec4(3.173, -0.6632, 1.11537, 0));
+    assertEquals(   t2.toVec4Homogeneous,       new Vec4(3, 7, 2, 1)                );
     console.log("   Testing isZero:");
     assertEquals(   t1.isZero,                  true                                );
     assertEquals(   t5.isZero,                  false                               );
