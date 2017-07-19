@@ -36,7 +36,7 @@ var TMATH = {
 		if (0 < t.x && t.x < 1 &&
 			0 < t.y && t.y < 1) return true;
 		else return false;
-	},
+	}
 }
 
 
@@ -510,24 +510,24 @@ class Mat4 {
     								this._col0.w,this._col1.w,this._col2.w,this._col3.w);
     }
     get inverse() {
-    	function det2(a,b,c, d,e,f, g,h,i) { return new Mat3(a,d,g, b,e,h, c,f,i).determinant; }
+    	function det3(a,b,c, d,e,f, g,h,i) { return new Mat3(a,d,g, b,e,h, c,f,i).determinant; }
     	return new Mat4(
-	    	det2(	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
-	    	-det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
-	    	det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.w, this._col2.w, this._col3.w ),
-	    	-det2(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z ),
-	    	-det2(	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
-	    	det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
-	    	-det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.w, this._col2.w, this._col3.w ),
-	    	det2(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z ),
-	    	det2(	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
-	    	-det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
-	    	det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.w, this._col1.w, this._col3.w ),
-	    	-det2(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z ),
-	    	-det2(	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
-	    	det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
-	    	-det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.w, this._col1.w, this._col2.w ),
-	    	det2(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z ),
+	    	det3(	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
+	    	-det3(	this._col1.x, this._col2.x, this._col3.x,	this._col1.z, this._col2.z, this._col3.z,	this._col1.w, this._col2.w, this._col3.w ),
+	    	det3(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.w, this._col2.w, this._col3.w ),
+	    	-det3(	this._col1.x, this._col2.x, this._col3.x,	this._col1.y, this._col2.y, this._col3.y,	this._col1.z, this._col2.z, this._col3.z ),
+	    	-det3(	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
+	    	det3(	this._col0.x, this._col2.x, this._col3.x,	this._col0.z, this._col2.z, this._col3.z,	this._col0.w, this._col2.w, this._col3.w ),
+	    	-det3(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.w, this._col2.w, this._col3.w ),
+	    	det3(	this._col0.x, this._col2.x, this._col3.x,	this._col0.y, this._col2.y, this._col3.y,	this._col0.z, this._col2.z, this._col3.z ),
+	    	det3(	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
+	    	-det3(	this._col0.x, this._col1.x, this._col3.x,	this._col0.z, this._col1.z, this._col3.z,	this._col0.w, this._col1.w, this._col3.w ),
+	    	det3(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.w, this._col1.w, this._col3.w ),
+	    	-det3(	this._col0.x, this._col1.x, this._col3.x,	this._col0.y, this._col1.y, this._col3.y,	this._col0.z, this._col1.z, this._col3.z ),
+	    	-det3(	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
+	    	det3(	this._col0.x, this._col1.x, this._col2.x,	this._col0.z, this._col1.z, this._col2.z,	this._col0.w, this._col1.w, this._col2.w ),
+	    	-det3(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.w, this._col1.w, this._col2.w ),
+	    	det3(	this._col0.x, this._col1.x, this._col2.x,	this._col0.y, this._col1.y, this._col2.y,	this._col0.z, this._col1.z, this._col2.z ),
     	).transpose.div(this.determinant);
     }
     get determinant() {

@@ -549,7 +549,7 @@ function testMat3() {
     console.log("   Testing transpose:");
     assertEquals(   m1.transpose,              	m1                                                              );
     assertEquals(   m2.transpose,             	m2                                                              );
-    assertEquals(   m5.transpose,              new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
+    assertEquals(   m5.transpose,               new Mat3(new Vec3(t5.x, t6.x, t5.x), new Vec3(t5.y, t6.y, t5.y), new Vec3(t5.z, t6.z, t5.z)));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
@@ -677,7 +677,7 @@ function testMat4() {
     console.log("   Testing transpose:");
     assertEquals(   m1.transpose,              	m1                                                              );
     assertEquals(   m2.transpose,              	m2                                                              );
-    assertEquals(   m5.transpose,              new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
+    assertEquals(   m5.transpose,               new Mat4(t5.x,t6.x,t5.x,t6.x, t5.y,t6.y,t5.y,t6.y, t5.z,t6.z,t5.z,t6.z, t5.w,t6.w,t5.w,t6.w));
     console.log("   Testing determinant:");
     assertEquals(   m1.determinant,             1                                                               );
     assertEquals(   m2.determinant,             0                                                               );
