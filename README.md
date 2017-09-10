@@ -19,7 +19,7 @@ w.length
 
 ```javascript
 let m = new Mat3(v, u, w);    // Creating a 3x3 matrix with columns v, u and w
-m = m.transpose.mul(-1)
+m = m.transpose.mul(-1);
 m.determinant
 >> 0
 ```
