@@ -1,6 +1,10 @@
 # tmath
-A simple mathematics library for EcmaScript6, with focus on linear algebra.
-This library weighs usability over performance, and as such should not be used for any performance-critical tasks.
+A simple, convenient mathematics library for EcmaScript6, with focus on linear algebra. Contains implementations and functionality for vectors and matrices in 2, 3 and 4 dimensions, thus making it suitable for 2D and 3D geometry applications.
+This library weighs usability and convenience over performance, and is therefore not intended for any performance-critical tasks.
+
+The vector and matrix classes mimic basic datatypes. The public interface does not allow editing a vector or matrix once implemented, but rather, their methods will return a new vector or matrix instance. This allows chaining operations, as demonstrated in the example below.
+
+If ES6 support is not guaranteed for your applications, consider taking a look at [Babel](https://babeljs.io/) or similar projects.
 
 ### Demonstration
 A few examples on how to use *tmath*:
